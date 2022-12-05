@@ -5,4 +5,5 @@ dist/
 pyenv/
 *venv/
 .env
+env/
 generation-*.pb.json

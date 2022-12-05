@@ -163,6 +163,7 @@ class StabilityInference:
         prompt: Union[str, List[str], generation.Prompt, List[generation.Prompt]],
         init_image: Optional[Image.Image] = None,
         mask_image: Optional[Image.Image] = None,
+        engine: str = "stable-diffusion-v1-5",
         height: int = 512,
         width: int = 512,
         start_schedule: float = 1.0,
@@ -292,7 +293,7 @@ class StabilityInference:
             parameters=[generation.StepParameter(**step_parameters)],
         )
 
-        return self.emit_request(prompt=prompts, image_parameters=image_parameters)
+        return self.emit_request(prompt=prompts, image_parameters=image_parameters, engine_id=engine)
 
             
     # The motivation here is to facilitate constructing requests by passing protobuf objects directly.
@@ -307,7 +308,7 @@ class StabilityInference:
             request_id = str(uuid.uuid4())
         if not engine_id:
             engine_id = self.engine
-        
+        print(engine_id)
         rq = generation.Request(
             engine_id=engine_id,
             request_id=request_id,
